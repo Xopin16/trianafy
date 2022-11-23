@@ -12,16 +12,16 @@ import lombok.NoArgsConstructor;
 public class SongDto {
 
     private String title, album;
-    private long artistId;
+    private String artist;
     private int year;
 
-    public static SongDto of (Song song){
-        return SongDto
-                .builder()
-                .title(song.getTitle())
-                .album(song.getAlbum())
-                .artistId(song.getArtist().getId())
-                .year(song.getYear())
-                .build();
-    }
+//    public static SongDto of (Song song){
+//        return SongDto
+//                .builder()
+//                .title(song.getTitle())
+//                .album(song.getAlbum())
+//                .artist(song.getArtist().getName())
+//                .year(song.getYear())
+//                .build();
+//    }
 }
