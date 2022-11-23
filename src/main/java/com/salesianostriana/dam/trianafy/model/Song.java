@@ -21,7 +21,7 @@ public class Song {
     private String title;
     private String album;
     @Column(name = "year_of_song")
-    private String year;
+    private int year;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Artist artist;
