@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class SongDto {
 
+    private Long id;
     private String title, album;
     private String artist;
     private int year;
