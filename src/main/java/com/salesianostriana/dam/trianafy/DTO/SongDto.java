@@ -15,14 +15,5 @@ public class SongDto {
     private String title, album;
     private String artist;
     private int year;
-
-//    public static SongDto of (Song song){
-//        return SongDto
-//                .builder()
-//                .title(song.getTitle())
-//                .album(song.getAlbum())
-//                .artist(song.getArtist().getName())
-//                .year(song.getYear())
-//                .build();
-//    }
+    
 }
