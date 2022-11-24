@@ -69,7 +69,7 @@ public class SongController {
 
     }
 
-    @DeleteMapping("/artist/{id}")
+    @DeleteMapping("/song/{id}")
     public ResponseEntity<Artist> deleteSong(@PathVariable Long id) {
         if (songRepo.existsById(id)) {
             songService.deleteById(id);
