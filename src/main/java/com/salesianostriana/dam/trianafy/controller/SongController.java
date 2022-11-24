@@ -65,7 +65,8 @@ public class SongController {
 //        Para la petición, necesitarás un DTO como el de creación.
 //        El modelo de respuesta será:
 //        { “id”: 1, “title”: “The song”, “artist”: “Artist name”, “album” : “The album”,
-//          “year”: 2000}
+//          “year”: 2000
+        //Of devuelve un 404 not found.
         return ResponseEntity.of(songService.findById(id).map(p -> {
                     p.setTitle(song.getTitle());
                     p.setAlbum(song.getAlbum());
