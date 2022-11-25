@@ -55,9 +55,9 @@ public class ArtistController {
 //    @DeleteMapping("/artist/{id}")
 //    public ResponseEntity<Artist> borrarArtist(@PathVariable Long id){
 //        if(artistRepo.existsById(id)){
-//            artistService.deleteById(id);
+//            artistService.findById(id).get();
+//
 //        }
-//        return ResponseEntity.status()
 //    }
 
 }

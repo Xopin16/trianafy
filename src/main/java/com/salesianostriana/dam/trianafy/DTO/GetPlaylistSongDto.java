@@ -5,15 +5,19 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Data
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class SongDto {
+public class GetPlaylistSongDto {
 
     private Long id;
-    private String title, album;
-    private String artist;
-    private int year;
-    
+    private String name;
+    private String description;
+    private List<SongDto> listSong;
+
 }
