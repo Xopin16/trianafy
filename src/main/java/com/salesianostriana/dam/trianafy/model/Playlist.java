@@ -28,7 +28,8 @@ public class Playlist {
     @Builder.Default
     private List<Song> songs = new ArrayList<>();
 
-    public Playlist(String name, String description) {
+    public Playlist(Long id, String name, String description) {
+        this.id = id;
         this.name = name;
         this.description = description;
     }

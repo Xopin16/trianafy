@@ -22,8 +22,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ArtistController {
 
-    private ArtistService artistService;
-    private ArtistRepository artistRepo;
+    private final ArtistService artistService;
+    private final ArtistRepository artistRepo;
 
     private final SongService songService;
 
@@ -39,7 +39,7 @@ public class ArtistController {
                                             [
                                                 {"id": 1, "name": "Iglesias"},
                                                 {"id": 2, "name": "Románico"}
-                                            ]                                          
+                                             ]                                         
                                             """
                             )}
                     )}),
@@ -61,7 +61,15 @@ public class ArtistController {
             @ApiResponse(responseCode = "200",
                     description = "Se ha encontrado el artista",
                     content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Artist.class))}),
+                            schema = @Schema(implementation = Artist.class),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            
+                                                {"id": 1, "name": "Joaquín Sabina"}
+                                                                                      
+                                            """
+                            )}
+                    )}),
             @ApiResponse(responseCode = "404",
                     description = "No se ha encontrado el artista por el ID",
                     content = @Content),
@@ -75,11 +83,19 @@ public class ArtistController {
 
     @Operation(summary = "Agrega un artista en base a su ID")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",
+            @ApiResponse(responseCode = "201",
                     description = "Se ha agregado el artista",
                     content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Artist.class))}),
-            @ApiResponse(responseCode = "404",
+                            schema = @Schema(implementation = Artist.class),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            
+                                                {"id": 1, "name": "Joaquín Sabina"}
+                                                                                      
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "400",
                     description = "No se ha agregado el artista",
                     content = @Content),
     })
@@ -91,12 +107,19 @@ public class ArtistController {
             return ResponseEntity.status(HttpStatus.CREATED).body(artistRepo.save(artist));
     }
 
-    @Operation(summary = "Obtiene un artista en base a su ID")
+    @Operation(summary = "Edita un artista en base a su ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Se ha encontrado el artista",
+                    description = "Se ha modificado el artista",
                     content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Artist.class))}),
+                            schema = @Schema(implementation = Artist.class),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            
+                                                {"id": 1, "name": "Joaquín Sabina"}
+                                                                                      
+                                            """
+                            )})}),
             @ApiResponse(responseCode = "404",
                     description = "No se ha encontrado el artista por el ID",
                     content = @Content),
@@ -112,7 +135,7 @@ public class ArtistController {
 
     @Operation(summary = "Borra un artista en base a su ID")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",
+            @ApiResponse(responseCode = "204",
                     description = "Se ha borrado el artista",
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Artist.class))}),
@@ -126,7 +149,7 @@ public class ArtistController {
             songService.findAll().stream()
                     .filter(s -> s.getArtist().getId().equals(id))
                     .forEach(s -> s.setArtist(null));
-
+            artistService.deleteById(id);
         }
         return ResponseEntity.noContent().build();
     }

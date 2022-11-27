@@ -11,6 +11,6 @@ public class CreateSongDto {
     private Long id;
     private String title;
     private String album;
-    private int year;
+    private String year;
     private Long artistId;
 }
