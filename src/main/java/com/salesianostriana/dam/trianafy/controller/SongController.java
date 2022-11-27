@@ -6,6 +6,7 @@ import com.salesianostriana.dam.trianafy.model.Playlist;
 import com.salesianostriana.dam.trianafy.model.Song;
 import com.salesianostriana.dam.trianafy.repos.SongRepository;
 import com.salesianostriana.dam.trianafy.service.ArtistService;
+import com.salesianostriana.dam.trianafy.service.PlaylistService;
 import com.salesianostriana.dam.trianafy.service.SongService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -30,6 +31,8 @@ public class SongController {
     private final SongDtoConverter convertDto;
     private final ArtistService artistService;
 
+    private final PlaylistService playlistService;
+
     @Operation(summary = "Obtiene todos las canciones")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -38,7 +41,7 @@ public class SongController {
                             array = @ArraySchema(schema = @Schema(implementation = Song.class)),
                             examples = {@ExampleObject(
                                     value = """
-                                            
+                                                                                        
                                                 [
                                                     {
                                                         "id": 5,
@@ -101,7 +104,7 @@ public class SongController {
                             schema = @Schema(implementation = Song.class),
                             examples = {@ExampleObject(
                                     value = """
-                                            
+                                                                                        
                                             {
                                                  "id": 4,
                                                  "title": "19 días y 500 noches",
@@ -137,7 +140,7 @@ public class SongController {
                             schema = @Schema(implementation = SongDto.class),
                             examples = {@ExampleObject(
                                     value = """
-                                            
+                                                                                        
                                                 {
                                                  "id": 14,
                                                  "title": "mi abuela",
@@ -180,18 +183,18 @@ public class SongController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = SongDto.class),
                             examples = {@ExampleObject(
-                            value = """
-                                           
-                                            {
-                                                "id": 9,
-                                                "title": "mi abuela",
-                                                "album": "19 días y 500 noches",
-                                                "artist": "No existe",
-                                                "year": 1999
-                                            }
-                                                                                   
-                                     """
-                    )})}),
+                                    value = """
+                                                  
+                                                   {
+                                                       "id": 9,
+                                                       "title": "mi abuela",
+                                                       "album": "19 días y 500 noches",
+                                                       "artist": "No existe",
+                                                       "year": 1999
+                                                   }
+                                                                                          
+                                            """
+                            )})}),
             @ApiResponse(responseCode = "404",
                     description = "No se ha encontrado la canción por el ID",
                     content = @Content),
@@ -229,6 +232,10 @@ public class SongController {
     @DeleteMapping("/song/{id}")
     public ResponseEntity<Song> deleteSong(@PathVariable Long id) {
         if (songRepo.existsById(id)) {
+            playlistService.findAll().forEach(p -> {
+                p.getSongs().removeAll(songService.findById(id).stream().collect(Collectors.toList()));
+                playlistService.edit(p);
+            });
             songService.deleteById(id);
         }
         return ResponseEntity.noContent().build();
