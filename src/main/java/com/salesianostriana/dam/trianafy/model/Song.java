@@ -21,13 +21,13 @@ public class Song {
     private String title;
     private String album;
     @Column(name = "year_of_song")
-    private int year;
+    private String year;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Artist artist;
 
 
-    public Song(Long id,String title, String album, int year) {
+    public Song(Long id,String title, String album, String year) {
         this.id = id;
         this.title = title;
         this.album = album;
