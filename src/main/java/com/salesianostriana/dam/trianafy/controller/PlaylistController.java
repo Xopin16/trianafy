@@ -355,8 +355,8 @@ public class PlaylistController {
     @DeleteMapping("/list/{id1}/song/{id2}")
     public ResponseEntity<Playlist> deleteSongOfPlaylist(@PathVariable Long id1, @PathVariable Long id2) {
         if (playlistRepo.existsById(id1) & songRepo.existsById(id2)) {
-            playlistRepo.findById(id1).get().getSongs().removeAll(songRepo.findById(id2).stream().toList());
-            playlistRepo.save(playlistService.findById(id1).get());
+            playlistService.findById(id1).get().getSongs().removeAll(songRepo.findById(id2).stream().toList());
+            playlistService.add(playlistService.findById(id1).get());
             return ResponseEntity.noContent().build();
         }else{
             return ResponseEntity.notFound().build();

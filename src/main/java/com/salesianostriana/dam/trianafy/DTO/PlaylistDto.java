@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -24,7 +25,7 @@ public class PlaylistDto {
                 .builder()
                 .id(p.getId())
                 .name(p.getName())
-                .numberOfSongs(p.getSongs().size())
+                .numberOfSongs(p.getSongs().stream().filter(s-> s.getId() != null).collect(Collectors.toList()).size())
                 .build();
     }
 }
