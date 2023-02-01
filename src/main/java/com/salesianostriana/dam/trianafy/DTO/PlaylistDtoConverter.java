@@ -15,7 +15,6 @@ public class PlaylistDtoConverter {
 
     public Playlist CreatePlaylistDtoToPlaylist(CreatePlaylistDto c) {
         return new Playlist(
-                c.getId(),
                 c.getName(),
                 c.getDescription()
         );
@@ -24,7 +23,6 @@ public class PlaylistDtoConverter {
     public CreatePlaylistDto playlistToPlaylistDto(Playlist playlist) {
         return CreatePlaylistDto
                 .builder()
-                .id(playlist.getId())
                 .name(playlist.getName())
                 .description(playlist.getDescription())
                 .build();

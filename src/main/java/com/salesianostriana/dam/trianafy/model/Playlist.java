@@ -34,6 +34,11 @@ public class Playlist {
         this.description = description;
     }
 
+    public Playlist(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
 
     public void addSong(Song song) {
         songs.add(song);

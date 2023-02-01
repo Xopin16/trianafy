@@ -1,11 +1,15 @@
 package com.salesianostriana.dam.trianafy.service;
 
 
+import com.salesianostriana.dam.trianafy.DTO.CreateArtistDto;
+import com.salesianostriana.dam.trianafy.exception.ArtistNotFoundException;
 import com.salesianostriana.dam.trianafy.model.Artist;
 import com.salesianostriana.dam.trianafy.repos.ArtistRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,14 +28,39 @@ public class ArtistService {
         return repository.findById(id);
     }
 
+    public Artist findByIdError(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ArtistNotFoundException(id));
+    }
+
+    public Artist save(CreateArtistDto artistDto){
+        return repository.save(CreateArtistDto.toArtist(artistDto));
+    }
+
     public List<Artist> findAll() {
         return repository.findAll();
+    }
+
+    public List<Artist> findAllArtist() {
+        List<Artist> result = repository.findAll();
+
+        if (result.isEmpty())
+            throw new EntityNotFoundException("No artist with this search criteria");
+
+        return result;
     }
 
     public Artist edit(Artist artist) {
         return repository.save(artist);
     }
 
+    public Artist editArtist(Long id, CreateArtistDto artistDto){
+        return repository.findById(id)
+                .map(artist -> {
+                    artist.setName(artistDto.getName());
+                    return repository.save(artist);
+                }).orElseThrow(ArtistNotFoundException::new);
+    }
     public void delete(Artist artist) {
         repository.delete(artist);
     }

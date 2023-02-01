@@ -1,6 +1,8 @@
 package com.salesianostriana.dam.trianafy.service;
 
 
+import com.salesianostriana.dam.trianafy.DTO.CreateSongDto;
+import com.salesianostriana.dam.trianafy.DTO.SongDtoConverter;
 import com.salesianostriana.dam.trianafy.model.Artist;
 import com.salesianostriana.dam.trianafy.model.Song;
 import com.salesianostriana.dam.trianafy.repos.SongRepository;
@@ -18,6 +20,10 @@ public class SongService {
 
     public Song add(Song song) {
         return repository.save(song);
+    }
+
+    public Song save(CreateSongDto songDto) {
+        return repository.save(CreateSongDto.of(songDto));
     }
 
     public Optional<Song> findById(Long id) {

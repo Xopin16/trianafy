@@ -12,7 +12,6 @@ public class SongDtoConverter {
 
     public Song CreateSongDtoToSong(CreateSongDto c){
         return new Song(
-                c.getId(),
                 c.getTitle(),
                 c.getAlbum(),
                 c.getYear()

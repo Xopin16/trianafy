@@ -5,8 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
@@ -14,6 +16,7 @@ import javax.persistence.Id;
 @NoArgsConstructor @AllArgsConstructor
 @Data
 @Builder
+@EntityListeners(AuditingEntityListener.class)
 public class Artist {
 
     @Id

@@ -1,6 +1,8 @@
 package com.salesianostriana.dam.trianafy.service;
 
 
+import com.salesianostriana.dam.trianafy.DTO.CreatePlaylistDto;
+import com.salesianostriana.dam.trianafy.DTO.PlaylistDtoConverter;
 import com.salesianostriana.dam.trianafy.model.Playlist;
 import com.salesianostriana.dam.trianafy.model.Song;
 import com.salesianostriana.dam.trianafy.repos.PlaylistRepository;
@@ -17,8 +19,14 @@ public class PlaylistService {
 
     private final PlaylistRepository repository;
 
+    private final PlaylistDtoConverter converter;
+
     public Playlist add(Playlist playlist) {
         return repository.save(playlist);
+    }
+
+    public Playlist save(CreatePlaylistDto playlistDto) {
+        return repository.save(converter.CreatePlaylistDtoToPlaylist(playlistDto));
     }
 
     public Optional<Playlist> findById(Long id) {
