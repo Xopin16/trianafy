@@ -1,28 +1,27 @@
 package com.salesianostriana.dam.trianafy.validation.validator;
 
 import com.salesianostriana.dam.trianafy.repos.ArtistRepository;
-import com.salesianostriana.dam.trianafy.validation.annotation.UniqueArtist;
-import org.springframework.beans.PropertyAccessorFactory;
+import com.salesianostriana.dam.trianafy.validation.annotation.UniqueArtistName;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class UniqueArtistValidator implements ConstraintValidator<UniqueArtist, Object> {
+public class UniqueArtistNameValidator implements ConstraintValidator<UniqueArtistName, Object> {
 
     @Autowired
     private ArtistRepository repository;
 
-    private Long id;
+    private String name;
 
     @Override
-    public void initialize(UniqueArtist constraintAnnotation) {
-        this.id = constraintAnnotation.id();
+    public void initialize(UniqueArtistName constraintAnnotation) {
+        this.name = constraintAnnotation.name();
 
     }
 
     @Override
     public boolean isValid(Object o, ConstraintValidatorContext context) {
-        return repository.existsById(id);
+        return repository.existsByName(name);
     }
 }

@@ -25,9 +25,7 @@ public class ArtistValidationController {
 
     @GetMapping("/artist/new/{id}")
     public Artist obtenerUno(@Valid @PathVariable Long id) {
-
-        return artistService.findByIdError(id);
-
+        return artistService.findByIdArtist(id);
     }
 
     @PostMapping("/artist/new")

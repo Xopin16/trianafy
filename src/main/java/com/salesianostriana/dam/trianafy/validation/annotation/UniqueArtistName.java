@@ -1,7 +1,6 @@
 package com.salesianostriana.dam.trianafy.validation.annotation;
 
-import com.salesianostriana.dam.trianafy.validation.validator.FieldsValueMatchValidator;
-import com.salesianostriana.dam.trianafy.validation.validator.UniqueArtistValidator;
+import com.salesianostriana.dam.trianafy.validation.validator.UniqueArtistNameValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -9,14 +8,14 @@ import java.lang.annotation.*;
 
 @Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = UniqueArtistValidator.class)
+@Constraint(validatedBy = UniqueArtistNameValidator.class)
 @Documented
-public @interface UniqueArtist {
+public @interface UniqueArtistName {
 
     String message() default "No puedes agregar el mismo artista dos veces.";
 
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 
-    long id();
+    String name();
 }

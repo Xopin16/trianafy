@@ -90,7 +90,7 @@ public class SongController {
         } else {
             List<SongDto> result =
                     data.stream()
-                            .map(s -> convertDto.songToSongDto(s))
+                            .map(convertDto::songToSongDto)
                             .collect(Collectors.toList());
             return ResponseEntity.ok(result);
         }

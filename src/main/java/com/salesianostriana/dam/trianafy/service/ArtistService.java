@@ -8,8 +8,6 @@ import com.salesianostriana.dam.trianafy.repos.ArtistRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
-import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +26,7 @@ public class ArtistService {
         return repository.findById(id);
     }
 
-    public Artist findByIdError(Long id) {
+    public Artist findByIdArtist(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new ArtistNotFoundException(id));
     }
@@ -45,7 +43,7 @@ public class ArtistService {
         List<Artist> result = repository.findAll();
 
         if (result.isEmpty())
-            throw new EntityNotFoundException("No artist with this search criteria");
+            throw new ArtistNotFoundException();
 
         return result;
     }

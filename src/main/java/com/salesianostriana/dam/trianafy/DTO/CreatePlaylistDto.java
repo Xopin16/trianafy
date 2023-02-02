@@ -13,7 +13,7 @@ import javax.validation.constraints.NotEmpty;
 @Builder
 public class CreatePlaylistDto {
 
-    @NotEmpty
+    @NotEmpty(message = "{createPLaylistDto.name.notempty}")
     private String name;
     private String description;
 }
